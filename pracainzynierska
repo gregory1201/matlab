@@ -1,0 +1,82 @@
+%liczba_probek = size(data, 1);
+%czas_trwania = 4.585441827774048
+%czestotliwosc_probkowania = liczba_probek / czas_trwania;
+%czestotliwosc_probkowania
+%%%%%%%%%%%%%%%
+%[y, Fs] = audioread('bagno.wav');
+%disp(['Częstotliwość próbkowania: ' num2str(Fs) ' Hz']);
+%%%%%%%%%%%%%%%%
+data = readmatrix('GBagno-z-dziurami.csv');
+czas = data(:, 1); % Kolumna z czasem
+sygnal = data(:, 4); % Kolumna z sygnałem
+Y = fft(sygnal);
+fs = 1 / (czas(2) - czas(1));
+f = (0:length(Y)-1) * fs / length(Y);
+figure
+
+% Pierwszy podwykres - przebieg sygnału
+subplot(2, 1, 1)
+plot(czas, sygnal, 'm')
+xlabel('Czas [s]')
+ylabel('Amplituda')
+title('Przebieg sygnału')
+grid on
+
+% Drugi podwykres - widmo sygnału
+subplot(2, 1, 2)
+plot(f, abs(Y), 'Color', [0.6, 0, 0.6])
+xlabel('Częstotliwość [Hz]')
+ylabel('Amplituda')
+title('Widmo sygnału')
+grid on
+
+subplot(2, 1, 1)
+ylim([min(sygnal), max(sygnal)])
+subplot(2, 1, 2)
+xlim([0, fs/2])
+sgtitle('Przebieg sygnału oraz jego widmo dla nawierzchni posiadającej płyty chodnikowe zarejestrowane za pomocą żyroskopu ')
+
+%%%%%%%%%MIKROFON
+
+% Wczytaj dane z pliku WAV
+%[y, fs] = audioread('plyty.wav');
+
+% Wylicz wektor czasu
+%t = (0:length(y)-1) / fs;
+
+% Wykonaj transformatę Fouriera
+%Y = fft(y);
+%f = (0:length(Y)-1) * fs / length(Y);
+
+% Utwórz nową figurę
+%figure
+
+% Pierwszy podwykres - przebieg sygnału
+%subplot(2, 1, 1)
+%plot(t, y)
+%xlabel('Czas [s]')
+%ylabel('Amplituda')
+%title('Przebieg sygnału')
+
+% Drugi podwykres - widmo sygnału
+%subplot(2, 1, 2)
+%plot(f, abs(Y),'Color', [0.6, 0, 0.6])
+%xlabel('Częstotliwość [Hz]')
+%ylabel('Amplituda')
+%title('Widmo sygnału')
+%xlim([0, 1500])  % Ograniczenie wartości na osi x do zakresu 0-1500 Hz
+
+% Dostosuj wygląd wykresu
+%grid on
+
+% Dopasuj rozmiar podwykresów
+%subplot(2, 1, 1)
+%ylim([min(y), max(y)])
+%subplot(2, 1, 2)
+%xlim([0, 1500])  % Ograniczenie wartości na osi x do zakresu 0-1500 Hz
+
+% Wyświetl tytuł całej figury
+%sgtitle('Przebieg sygnału oraz jego widmo dla nawierzchni posiadającej płyty chodnikowe zarejestrowane za pomocą mikrofonu')
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
